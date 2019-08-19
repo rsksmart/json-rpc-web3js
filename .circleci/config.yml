@@ -28,8 +28,7 @@ jobs:
                       echo "Waiting for RskJ..."
                       sleep 1
                     done
-                    sudo apt install nodejs
-                    sudo npm install -g n
+                    sudo apt-get install npm
                     npm install
                     npm test
 
