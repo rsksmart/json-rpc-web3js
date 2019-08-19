@@ -4,11 +4,11 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
+      
       - image: circleci/node:7
 
 
     working_directory: ~/tmp
-
 
     steps:
       - checkout
