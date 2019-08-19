@@ -8,6 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:7
+      - image: circleci/openjdk:8-jdk
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -37,6 +38,7 @@ jobs:
                         echo "Waiting for RskJ..."
                         sleep 1
                       done
+                      cd ~/json-rpc-web3js/
                       npm install
                       npm test
                       
