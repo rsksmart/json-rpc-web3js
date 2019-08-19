@@ -4,14 +4,10 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
-      
-      - image: circleci/node:7
-
 
     working_directory: ~/tmp
 
     steps:
-      - checkout
       - run:
           name: Clone and Build RSKj
           command: |
@@ -29,13 +25,27 @@ jobs:
                       echo "Waiting for RskJ..."
                       sleep 1
                     done
+  test:
+    docker:
+      # specify the version you desire here
+            - image: circleci/node:7
+
+    working_directory: ~/tmp
+
+    steps:
+      - checkout
+      - run:
+          name: Start Web3js Tests
+          command: |
                     npm install
                     npm test
+
                       
 workflows:
     commit:
         jobs:
             - build
+            - test
     daily:
         triggers:
             - schedule:
