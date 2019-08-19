@@ -20,15 +20,7 @@ jobs:
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
-      - run:
-          name: Start RSKj
-          command: |
-                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-1.1.0-SNAPSHOT-all.jar co.rsk.Start --regtest nohup &               
-                    until nc -z 127.0.0.1 4444
-                    do
-                      echo "Waiting for RskJ..."
-                      sleep 1
-                    done
+
       - run:
           name: Prepare npm
           command: |
@@ -39,9 +31,15 @@ jobs:
                     sudo apt install build-essential
 
       - run:
-          name: Run Tests
+          name: Start RskJ & Run Tests
           command: |
                     npm install
+                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-1.1.0-SNAPSHOT-all.jar co.rsk.Start --regtest nohup &               
+                    until nc -z 127.0.0.1 4444
+                    do
+                      echo "Waiting for RskJ..."
+                      sleep 1
+                    done
                     npm test
                       
 workflows:
