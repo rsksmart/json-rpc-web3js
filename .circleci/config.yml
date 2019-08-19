@@ -40,6 +40,9 @@ jobs:
       - run:
           name: Run Tests
           command: |
+                    path
+                    ls -ltr
+                    cd /home/circleci/tmp
                     ls -ltr
                     npm install
                     npm test
