@@ -1,0 +1,27 @@
+{
+  "name": "json-rpc-web3js",
+  "version": "0.0.1",
+  "description": "Light Web3js test suite for daily test on RskJ",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./smoke-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iovlabs-qa/json-rpc-web3js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iovlabs-qa/json-rpc-web3js/issues"
+  },
+  "homepage": "https://github.com/iovlabs-qa/json-rpc-web3js#readme",
+  "dependencies": {
+    "bignumber.js": "^9.0.0",
+    "chai": "^4.2.0",
+    "fs": "0.0.1-security",
+    "mocha": "^6.2.0",
+    "path": "^0.12.7",
+    "web3": "^1.2.1"
+  }
+}
