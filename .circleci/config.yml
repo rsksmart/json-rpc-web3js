@@ -20,7 +20,7 @@ jobs:
                     ./configure.sh
                     ./gradlew clean build -x test
       - run:
-          name: Start RSKj & Run tests
+          name: Start RSKj
           command: |
                     java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-1.1.0-SNAPSHOT-all.jar co.rsk.Start --regtest nohup &               
                     until nc -z 127.0.0.1 4444
@@ -28,11 +28,19 @@ jobs:
                       echo "Waiting for RskJ..."
                       sleep 1
                     done
+      - run:
+          name: Prepare npm
+          command: |
                     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
                     sudo apt-get install -y nodejs
                     npm install
                     npm test
 
+      - run:
+          name: Run Tests
+          command: |
+                    npm install
+                    npm test
                       
 workflows:
     commit:
