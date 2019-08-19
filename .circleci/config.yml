@@ -31,7 +31,10 @@ jobs:
       - run:
           name: Prepare npm
           command: |
+                    sudo apt update
                     sudo apt-get install -y nodejs
+                    sudo apt install npm
+                    sudo apt install build-essential
 
       - run:
           name: Run Tests
