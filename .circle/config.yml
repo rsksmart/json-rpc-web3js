@@ -1,0 +1,55 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2.1
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/tmp
+
+
+    steps:
+      - checkout
+      - run:
+          name: Clone and Build RSKj
+          command: |
+                    GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_fingerprint'
+                    git clone git@github.com:rsksmart/rskj.git ~/rsksmart/rskj
+                    cd ~/rsksmart/rskj/
+                    ./configure.sh
+                    ./gradlew clean build -x test
+# run tests!
+      - run:
+          name: Start RSKj & Run tests
+          command: |
+                      java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-1.1.0-SNAPSHOT-all.jar co.rsk.Start --regtest nohup &               
+                      until nc -z 127.0.0.1 4444
+                      do
+                        echo "Waiting for RskJ..."
+                        sleep 1
+                      done
+                      npm test
+                      
+workflows:
+    commit:
+        jobs:
+            - build
+    daily:
+        triggers:
+            - schedule:
+                cron: "33 01 * * *"
+                filters:
+                    branches:
+                        only:
+                            - master
+        jobs:
+            - build
