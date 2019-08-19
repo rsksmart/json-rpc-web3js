@@ -40,6 +40,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
+                    ls -ltr
                     npm install
                     npm test
                       
