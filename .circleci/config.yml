@@ -27,6 +27,7 @@ jobs:
                       echo "Waiting for RskJ..."
                       sleep 1
                     done
+                    ls
                     cd ~/json-rpc-web3js/
                     ls
                     npm install
