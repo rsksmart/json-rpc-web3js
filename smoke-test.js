@@ -18,8 +18,7 @@ describe('RskJ Smoke Tests', function () {
 
 
   before(async () => {
-    web3 = new Web3('http://localhost:4444', null, { transactionConfirmationBlocks: 1 });
-  //web3Full1 = new Web3('http://full1:4444', null, {transactionConfirmationBlocks: 1});
+    web3 = new Web3('http://127.0.0.1:4444', null, { transactionConfirmationBlocks: 1 });
 
     web3.evm = {
       mine: () => web3.currentProvider.send('evm_mine')

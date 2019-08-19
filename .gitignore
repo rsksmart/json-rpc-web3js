@@ -6271,3 +6271,4 @@ node_modules/.bin/flat
 node_modules/.bin/esvalidate
 node_modules/.bin/esparse
 node_modules/.bin/_mocha
+.circleci/.config.yml.swp
