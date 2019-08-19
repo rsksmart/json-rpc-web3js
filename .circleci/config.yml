@@ -27,7 +27,7 @@ jobs:
                       echo "Waiting for RskJ..."
                       sleep 1
                     done
-                    cd ~/tmp/json-rpc-web3js/
+                    cd /home/circleci/tmp/json-rpc-web3js/
                     npm install
                     npm test
                       
