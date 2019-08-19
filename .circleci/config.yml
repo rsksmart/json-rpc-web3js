@@ -9,6 +9,9 @@ jobs:
 
     steps:
       - run:
+          name: Avoid hosts unknown for github
+          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
           name: Clone and Build RSKj
           command: |
                     GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_fingerprint'
