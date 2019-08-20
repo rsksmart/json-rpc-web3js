@@ -4,7 +4,7 @@
   "description": "Light Web3js test suite for daily test on RskJ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./smoke-test.js"
+    "test": "mocha ./smoke-test.js --reporter mocha-junit-reporter"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "bignumber.js": "^9.0.0",
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
+    "mocha-junit-reporter": "^1.23.1",
     "path": "^0.12.7",
     "solc": "^0.5.10",
     "web3": "1.0.0-beta.55"
