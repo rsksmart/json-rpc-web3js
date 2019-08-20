@@ -301,4 +301,42 @@ describe('RskJ Smoke Tests', function () {
     });
     assert(logs);
   });
+
+
+  //web3_sha3
+  it(`web3_sha3: Should calculate sha3 for input`, async () =>{
+    let sha3Result = await web3.utils.sha3('234'); // taken as string
+    assert.equal(sha3Result, '0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79');
+  });
+  
+  //eth_coinbase
+  it(`eth_coinbase: Should return coinbase from RskJ`, async () =>{
+    let coinbase = await web3.eth.getCoinbase(); // taken as string
+    assert.equal(coinbase, '0xec4ddeb4380ad69b3e509baad9f158cdf4e4681d');
+  });
+/*
+  //eth_call
+  it(`eth_call: Should execute a message call transaction`, async () =>{
+    let result = await web3.eth.call({
+    to: contractAddress, // contract address
+    data: ""
+    });
+    assert.equal(result,"0x00");
+
+    result = await web3.eth.call({
+    to: contractAddress, // contract address
+    data: "",
+    gas: "0x76c0", 
+    gasPrice: "0x00", 
+    value: "0x9184e72a"
+    },"latest");
+    assert.equal(result,"0x00");
+
+
+    result = await web3.eth.call({
+    to: contractAddress, // contract address
+    data: "0xc6888fa10000000000000000000000000000000000000000000000000000000000000003"
+    },"pending");
+    assert.equal(result,"0x00");
+  });*/
 });
