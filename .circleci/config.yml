@@ -41,7 +41,11 @@ jobs:
                       sleep 1
                     done
                     npm test
-                      
+
+      - store_test_results:
+          path: ~/tmp/Results
+        
+        
 workflows:
     commit:
         jobs:
