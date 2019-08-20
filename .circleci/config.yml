@@ -43,7 +43,7 @@ jobs:
                     npm test
 
     - store_test_results:
-        path: ~/tmp/Results/mocha
+        path: ~/tmp/Results
         
         
 workflows:
