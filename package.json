@@ -4,7 +4,7 @@
   "description": "Light Web3js test suite for daily test on RskJ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./smoke-test.js --reporter mocha-junit-reporter"
+    "test": "mocha ./smoke-test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results.xml"
   },
   "repository": {
     "type": "git",
