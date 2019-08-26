@@ -187,8 +187,6 @@ describe('RskJ Smoke Tests', function () {
     assert(txReceipt.contractAddress);
     contractAddress = txReceipt.contractAddress;
 
-    // await new Promise((res) => setTimeout(res, 2000));
-
     let deployedContract = new web3.eth.Contract(abi, txReceipt.contractAddress);
 
     let getCall = deployedContract.methods.get();
@@ -197,9 +195,14 @@ describe('RskJ Smoke Tests', function () {
       data: getCall.encodeABI(),
     };
 
-    let currentVal = await web3.eth.call(callParams)
+    let currentVal = await web3.eth.call(callParams);
     assert.equal(currentVal, '0x0000000000000000000000000000000000000000000000000000000000000005');
 
+    let currentValLatest = await web3.eth.call(callParams,"latest");
+    assert.equal(currentValLatest, '0x0000000000000000000000000000000000000000000000000000000000000005');
+   
+    let currentValPending = await web3.eth.call(callParams,"pending");
+    assert.equal(currentValPending, '0x0000000000000000000000000000000000000000000000000000000000000005');
 
     let setCall = deployedContract.methods.set(34);
     let setGasEstimate = await setCall.estimateGas({ from: signedAccount.address });
@@ -305,38 +308,14 @@ describe('RskJ Smoke Tests', function () {
 
   //web3_sha3
   it(`web3_sha3: Should calculate sha3 for input`, async () =>{
-    let sha3Result = await web3.utils.sha3('234'); // taken as string
+    let sha3Result = await web3.utils.sha3('234'); 
     assert.equal(sha3Result, '0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79');
   });
   
   //eth_coinbase
   it(`eth_coinbase: Should return coinbase from RskJ`, async () =>{
-    let coinbase = await web3.eth.getCoinbase(); // taken as string
+    let coinbase = await web3.eth.getCoinbase(); 
     assert.equal(coinbase, '0xec4ddeb4380ad69b3e509baad9f158cdf4e4681d');
   });
-/*
-  //eth_call
-  it(`eth_call: Should execute a message call transaction`, async () =>{
-    let result = await web3.eth.call({
-    to: contractAddress, // contract address
-    data: ""
-    });
-    assert.equal(result,"0x00");
 
-    result = await web3.eth.call({
-    to: contractAddress, // contract address
-    data: "",
-    gas: "0x76c0", 
-    gasPrice: "0x00", 
-    value: "0x9184e72a"
-    },"latest");
-    assert.equal(result,"0x00");
-
-
-    result = await web3.eth.call({
-    to: contractAddress, // contract address
-    data: "0xc6888fa10000000000000000000000000000000000000000000000000000000000000003"
-    },"pending");
-    assert.equal(result,"0x00");
-  });*/
 });
