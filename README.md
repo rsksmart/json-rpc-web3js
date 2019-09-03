@@ -12,6 +12,7 @@ This is still a BETA but it's fully functional and tests can be incorporated.
 # Getting Started
 Prerequisites:
 - npm 
+- RSKj node running on localhost and port 4444
 
 Instructions:
 - Clone this repository
