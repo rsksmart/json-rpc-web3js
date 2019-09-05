@@ -25,6 +25,12 @@ describe('RskJ Smoke Tests', function () {
     };
   });
 
+  it('Network should be RSK', async () => {
+    // web3_clientVersion
+    let clientVersion = await web3.eth.getNodeInfo();
+    assert(clientVersion.indexOf('RskJ') >= 0,"Network should be RSK but is :" + clientVersion);
+
+  })
 
   it('Should advance until block 5', async () => {
     let blockNumber = await web3.eth.getBlockNumber();
@@ -36,9 +42,6 @@ describe('RskJ Smoke Tests', function () {
   })
 
   it('Should have all the simple cached methods work', async () => {
-    // web3_clientVersion
-     //let clientVersion = await web3Full1.eth.getNodeInfo();
-     //assert(clientVersion.indexOf('RskJ') >= 0);
 
     // eth_hashrate
     let hashRate = await web3.eth.getHashrate();
