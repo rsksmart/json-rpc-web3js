@@ -44,7 +44,9 @@ jobs:
 
       - store_test_results:
           path: ~/tmp/Results
-        
+      
+      - store_artifacts:
+          path: ~/tmp/Results/mocha
         
 workflows:
     commit:
