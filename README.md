@@ -1,5 +1,5 @@
 # Welcome to json-rpc-web3js test suite
-[![CircleCI](https://circleci.com/gh/iovlabs-qa/json-rpc-web3js/tree/master.svg?style=svg)](https://circleci.com/gh/iovlabs-qa/json-rpc-web3js/tree/master)
+[![CircleCI](https://circleci.com/gh/rsksmart/json-rpc-web3js/tree/master.svg?style=svg)](https://circleci.com/gh/rsksmart/json-rpc-web3js/tree/master)
 
 
 
