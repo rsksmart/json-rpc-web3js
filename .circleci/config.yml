@@ -155,18 +155,4 @@ jobs:
       
       - store_artifacts:
           path: ~/tmp/Results/mocha
-        
-workflows:
-    commit:
-        jobs:
-            - build
-    daily:
-        triggers:
-            - schedule:
-                cron: "21 01 * * *"
-                filters:
-                    branches:
-                        only:
-                            - master
-        jobs:
-            - build
+
