@@ -8,7 +8,6 @@ const path = require('path');
 describe('RskJ Smoke Tests', function () {
   this.timeout(10000);
   let web3;
-  //let web3Full1;
 
   let PRIVATE_KEY = '0xc85ef7d79691fe79573b1a7064c19c1a9819ebdbd1faaab1a8ec92344438aaf4'; //cow
 
@@ -28,7 +27,7 @@ describe('RskJ Smoke Tests', function () {
   it('Network should be RSK', async () => {
     // web3_clientVersion
     let clientVersion = await web3.eth.getNodeInfo();
-    assert(clientVersion.indexOf('RskJ') >= 0,"Network should be RSK but is :" + clientVersion);
+    assert(clientVersion.indexOf('RskJ') >= 0, "Network should be RSK but is :" + clientVersion);
 
   })
 
@@ -78,12 +77,6 @@ describe('RskJ Smoke Tests', function () {
     // eth_protocolVersion
     let protocolVersion = await web3.eth.getProtocolVersion();
     assert.equal(protocolVersion, '62');
-
-    
-    // eth_getCompilers -Not available
-    //let compilers = await web3.eth.getCompilers();
-    //assert.isArray(compilers);
-    //assert.equal(compilers.length, 1);
 
     // eth_mining
     let isMining = await web3.eth.isMining();
@@ -201,10 +194,10 @@ describe('RskJ Smoke Tests', function () {
     let currentVal = await web3.eth.call(callParams);
     assert.equal(currentVal, '0x0000000000000000000000000000000000000000000000000000000000000005');
 
-    let currentValLatest = await web3.eth.call(callParams,"latest");
+    let currentValLatest = await web3.eth.call(callParams, "latest");
     assert.equal(currentValLatest, '0x0000000000000000000000000000000000000000000000000000000000000005');
-   
-    let currentValPending = await web3.eth.call(callParams,"pending");
+
+    let currentValPending = await web3.eth.call(callParams, "pending");
     assert.equal(currentValPending, '0x0000000000000000000000000000000000000000000000000000000000000005');
 
     let setCall = deployedContract.methods.set(34);
@@ -229,8 +222,21 @@ describe('RskJ Smoke Tests', function () {
       .on('error', (error) => {
         assert(false, `Unexpected error sending set transaction: $`);
       });
-
     assert.isObject(receipt);
+    let receiptString = JSON.stringify(receipt);
+    assert(receiptString.indexOf('transactionHash') > 0, "transactionHash is not being returned and it's expected!");
+    assert(receiptString.indexOf('transactionIndex') > 0, "transactionIndex is not being returned and it's expected!");
+    assert(receiptString.indexOf('blockHash') > 0, "blockHash is not being returned and it's expected!");
+    assert(receiptString.indexOf('blockNumber') > 0, "blockNumber is not being returned and it's expected!");
+    assert(receiptString.indexOf('cumulativeGasUsed') > 0, "cumulativeGasUsed is not being returned and it's expected!");
+    assert(receiptString.indexOf('gasUsed') > 0, "gasUsed is not being returned and it's expected!");
+    assert(receiptString.indexOf('contractAddress') > 0, "contractAddress is not being returned and it's expected!");
+    assert(receiptString.indexOf('logs') > 0, "logs is not being returned and it's expected!");
+    assert(receiptString.indexOf('from') > 0, "from is not being returned and it's expected!");
+    assert(receiptString.indexOf('to') > 0, "to is not being returned and it's expected!");
+    assert(receiptString.indexOf('root') > 0, "root is not being returned and it's expected!");
+    assert(receiptString.indexOf('status') >0, "status is not being returned and it's expected!");
+    assert(receiptString.indexOf('logsBloom') > 0, "logsBloom is not being returned and it's expected!");
 
     await new Promise((res) => setTimeout(res, 5000));
 
@@ -243,9 +249,8 @@ describe('RskJ Smoke Tests', function () {
   // eth_getCode
   it(`eth_getCode: Should return the contract's code`, async () => {
     let contractCode = await web3.eth.getCode(contractAddress, 'latest');
-    assert(contractCode);
-
-    let accountCount = await web3.eth.getCode(testAccount,'earliest');
+    assert.equal(contractCode, '0x6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b606860c1565b6040518082815260200191505060405180910390f35b806000819055507f93fe6d397c74fdf1402a8b72e47b68512f0510d7b98a4bc4cbdf6ac7108b3c596000546040518082815260200191505060405180910390a150565b6000805490509056fea265627a7a72305820c73a787ed29a46f8a85631abd07c906d900ca03c03b631cc85fe396408072ee164736f6c634300050a0032');
+    let accountCount = await web3.eth.getCode(testAccount, 'earliest');
     assert.equal('0x00', accountCount);
 
     let invalidAccount = await web3.eth.getCode('0x0000000000000000000000000000000000000001', 'latest');
@@ -271,7 +276,21 @@ describe('RskJ Smoke Tests', function () {
   // eth_getTransactionByHash
   it(`eth_getTransactionByHash: Should get a transaction by its hash`, async () => {
     let tx = await web3.eth.getTransaction(trxHash);
-    assert(tx);
+    assert.isObject(tx);
+    let txString = JSON.stringify(tx);
+    assert(txString.indexOf('hash') > 0, "hash is not being returned and it's expected!");
+    assert(txString.indexOf('transactionIndex') > 0, "transactionIndex is not being returned and it's expected!");
+    assert(txString.indexOf('blockHash') > 0, "blockHash is not being returned and it's expected!");
+    assert(txString.indexOf('blockNumber') > 0, "blockNumber is not being returned and it's expected!");
+    assert(txString.indexOf('value') > 0, "value is not being returned and it's expected!");
+    assert(txString.indexOf('input') > 0, "input is not being returned and it's expected!");
+    assert(txString.indexOf('from') > 0, "from is not being returned and it's expected!");
+    assert(txString.indexOf('to') > 0, "to is not being returned and it's expected!");
+    assert(txString.indexOf('gasPrice') > 0, "gasPrice is not being returned and it's expected!");
+    assert(txString.indexOf('gas') > 0, "gas is not being returned and it's expected!");
+    assert(txString.indexOf('"v"') > 0, "v: is not being returned and it's expected!");
+    assert(txString.indexOf('"r"') > 0, "r: is not being returned and it's expected!");
+    assert(txString.indexOf('"s"') > 0, "s: is not being returned and it's expected!");
 
     let invalidTx = await web3.eth.getTransaction('0x5eae996aa609c0b9db434c7a2411437fefc3ff16046b71ad102453cfdeadbeef');
     assert.isNull(invalidTx);
@@ -281,8 +300,21 @@ describe('RskJ Smoke Tests', function () {
   it(`eth_getTransactionReceipt: Should get transaction receipt`, async () => {
 
     let receipt = await web3.eth.getTransactionReceipt(trxHash);
-    assert(receipt);
-
+    assert.isObject(receipt);
+    let receiptString = JSON.stringify(receipt);
+    assert(receiptString.indexOf('transactionHash') >= 0, "transactionHash is not being returned and it's expected!");
+    assert(receiptString.indexOf('transactionIndex') >= 0, "transactionIndex is not being returned and it's expected!");
+    assert(receiptString.indexOf('blockHash') >= 0, "blockHash is not being returned and it's expected!");
+    assert(receiptString.indexOf('blockNumber') >= 0, "blockNumber is not being returned and it's expected!");
+    assert(receiptString.indexOf('cumulativeGasUsed') >= 0, "cumulativeGasUsed is not being returned and it's expected!");
+    assert(receiptString.indexOf('gasUsed') >= 0, "gasUsed is not being returned and it's expected!");
+    assert(receiptString.indexOf('contractAddress') >= 0, "contractAddress is not being returned and it's expected!");
+    assert(receiptString.indexOf('logs') >= 0, "logs is not being returned and it's expected!");
+    assert(receiptString.indexOf('from') >= 0, "from is not being returned and it's expected!");
+    assert(receiptString.indexOf('to') >= 0, "to is not being returned and it's expected!");
+    assert(receiptString.indexOf('root') >= 0, "root is not being returned and it's expected!");
+    assert(receiptString.indexOf('status') >= 0, "status is not being returned and it's expected!");
+    assert(receiptString.indexOf('logsBloom') >= 0, "logsBloom is not being returned and it's expected!");
     let invalidTx = await web3.eth.getTransactionReceipt('0xd05274b72ca6346bcce89a64cd42ddd28d885fdd06772efe0fe7d19fdeadbeef');
     assert.isNull(invalidTx);
   });
@@ -305,19 +337,32 @@ describe('RskJ Smoke Tests', function () {
       'toBlock': await web3.eth.getBlockNumber(),
       'address': contractAddress,
     });
-    assert(logs);
+    assert.isObject(logs[0]);
+    let logTrxHash = logs[0].transactionHash;
+    assert.equal(logTrxHash, trxHash);
+    let logsString = JSON.stringify(logs[0]);
+    assert(logsString.indexOf('logIndex') >= 0, "logIndex: is not being returned and it's expected!");
+    assert(logsString.indexOf('blockNumber') >= 0, "blockNumber: is not being returned and it's expected!");
+    assert(logsString.indexOf('blockHash') >= 0, "blockHash: is not being returned and it's expected!");
+    assert(logsString.indexOf('transactionIndex') >= 0, "transactionIndex: is not being returned and it's expected!");
+    assert(logsString.indexOf('address') >= 0, "address: is not being returned and it's expected!");
+    assert(logsString.indexOf('data') >= 0, "data: is not being returned and it's expected!");
+    assert(logsString.indexOf('topics') >= 0, "topics: is not being returned and it's expected!");
+    assert(logsString.indexOf('id') >= 0, "id: is not being returned and it's expected!");
+    assert(logsString.indexOf('transactionHash') >= 0, "transactionHash is not being returned and it's expected!");
+
   });
 
 
   //web3_sha3
-  it(`web3_sha3: Should calculate sha3 for input`, async () =>{
-    let sha3Result = await web3.utils.sha3('234'); 
+  it(`web3_sha3: Should calculate sha3 for input`, async () => {
+    let sha3Result = await web3.utils.sha3('234');
     assert.equal(sha3Result, '0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79');
   });
-  
+
   //eth_coinbase
-  it(`eth_coinbase: Should return coinbase from RskJ`, async () =>{
-    let coinbase = await web3.eth.getCoinbase(); 
+  it(`eth_coinbase: Should return coinbase from RskJ`, async () => {
+    let coinbase = await web3.eth.getCoinbase();
     assert.equal(coinbase, '0xec4ddeb4380ad69b3e509baad9f158cdf4e4681d');
   });
 
