@@ -24,10 +24,12 @@ jobs:
       - run:
           name: Prepare npm
           command: |
+                    sudo apt-get update -y
+                    sudo apt-get install -y apt-utils
                     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
                     sudo apt update
-                    sudo apt-get install -y nodejs
-                    sudo apt install npm
+                    sudo apt-get upgrade
+                    sudo apt-get install -yf nodejs
                     sudo apt install build-essential
 
       - run:
