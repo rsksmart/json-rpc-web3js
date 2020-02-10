@@ -26,6 +26,7 @@ jobs:
           command: |
                     curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
                     sudo apt update
+                    sudo apt-get upgrade
                     sudo apt-get install -yf nodejs
                     sudo apt install npm
                     sudo apt install build-essential
