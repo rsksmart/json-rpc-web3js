@@ -30,7 +30,6 @@ jobs:
                     sudo apt update
                     sudo apt-get upgrade
                     sudo apt-get install -yf nodejs
-                    sudo apt install npm
                     sudo apt install build-essential
 
       - run:
