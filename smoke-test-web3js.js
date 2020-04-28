@@ -4,8 +4,7 @@ const BN = require('bignumber.js');
 const fs = require('fs');
 const path = require('path');
 
-
-describe('RskJ Smoke Tests', function () {
+describe('Rskj web3js Smoke Tests', function () {
   this.timeout(10000);
   let web3;
 
@@ -17,7 +16,7 @@ describe('RskJ Smoke Tests', function () {
 
 
   before(async () => {
-    web3 = new Web3('http://127.0.0.1:4444', null, { transactionConfirmationBlocks: 1 });
+    web3 = new Web3('http://127.0.0.1:4444/1.3.0/', null, { transactionConfirmationBlocks: 1 });
 
     web3.evm = {
       mine: () => web3.currentProvider.send('evm_mine')
@@ -156,7 +155,7 @@ describe('RskJ Smoke Tests', function () {
     assert.equal(byNumber, expectedCount);
   });
 
-  //eth_call 
+  //eth_call
   //eth_sendRawTransaction
   it('eth_sendRawTransaction & eth_call: Should compile and deploy a contract successfully and interact with that contract', async function () {
     this.timeout(20000);

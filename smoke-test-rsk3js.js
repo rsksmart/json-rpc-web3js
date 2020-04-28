@@ -16,7 +16,7 @@ describe('Rskj rsk3js Smoke Tests', function () {
 
 
   before(async () => {
-    rsk3 = new Rsk3('http://127.0.0.1:4444', null, { transactionConfirmationBlocks: 1 });
+    rsk3 = new Rsk3('http://127.0.0.1:4444/1.3.0/', null, { transactionConfirmationBlocks: 1 });
 
     rsk3.evm = {
       mine: () => rsk3.currentProvider.send('evm_mine')
