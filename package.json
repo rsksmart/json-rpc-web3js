@@ -8,7 +8,7 @@
     "test-rsk3js-default-reporter": "mocha ./smoke-test-rsk3js.js",
     "test-web3js": "mocha ./smoke-test-web3js.js --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results-web3js.xml",
     "test-rsk3js": "mocha ./smoke-test-rsk3js.js --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results-rsk3js.xml",
-    "test":        "mocha ./smoke-test-*.js      --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results.xml"
+    "test": "mocha ./smoke-test-*.js      --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results.xml"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,6 @@
     "path": "^0.12.7",
     "solc": "^0.5.10",
     "web3": "1.0.0-beta.55",
-    "@rsksmart/rsk3": "0.3.3"
+    "@rsksmart/rsk3": "0.3.4"
   }
 }
