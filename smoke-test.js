@@ -49,7 +49,6 @@ libs.forEach(({
     it('Network should be RSK', async () => {
       // web3_clientVersion
       let clientVersion = await web3.eth.getNodeInfo();
-      console.log(clientVersion);
       assert(clientVersion.indexOf('RskJ') >= 0, "Network should be RSK but is :" + clientVersion);
 
     })

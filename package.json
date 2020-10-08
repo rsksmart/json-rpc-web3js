@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-default-reporter": "mocha ./smoke-test.js",
-    "test": "mocha ./smoke-test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results.xml"
+    "test": "mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./Results/mocha/Test-Results.xml"
   },
   "repository": {
     "type": "git",
