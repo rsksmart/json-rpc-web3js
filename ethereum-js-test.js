@@ -21,7 +21,7 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
   before(async () => {
 
     let url = "http://127.0.0.1:4444";
-    provider = new ethers.providers.JsonRpcProvider(url);
+    provider = new ethers.providers.StaticJsonRpcProvider(url);
     const signer = provider.getSigner();
     web3 = new Web3('http://127.0.0.1:4444', null, {
       transactionConfirmationBlocks: 1
@@ -44,7 +44,7 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
   it('Should advance until block 5', async () => {
     let blockNumber = await provider.getBlockNumber();
     for (let i = blockNumber; i < 5; i++) {
-      await provider.send('evm_mine')
+      await provider.send('evm_mine');
     }
     blockNumber = await provider.getBlockNumber();
     assert.isAbove(blockNumber, 4);
@@ -170,9 +170,29 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
     let bytecode = contractOutput.bytecode;
     let factory = new ethers.ContractFactory(abi, bytecode, wallet);
     let contract = await factory.deploy();
-   // await contract.deployed();
     contractAddress = contract.address;
     assert(contractAddress);
+    await contract.deployed();
+
+    
+    // First 4 bytes of the hash of "get()" for the Hello World contract
+  /*  let getData = ethers.utils.hexDataSlice(ethers.utils.id('get()'), 0, 4);
+
+    let getTransaction = {
+      to: contractAddress,
+      data: getData
+    }
+
+    let callPromise = provider.call(getTransaction);
+
+    callPromise.then((result) => {
+      assert.equal(result, '0x0000000000000000000000000000000000000000000000000000000000000005');
+    });
+
+*/
+  //  let tx = await contract.set(34);
+
+    //console.log("tx: "+ JSON.stringify(tx));
 
     /*   let deployedContract = new web3.eth.Contract(abi, txReceipt.contractAddress);
 
