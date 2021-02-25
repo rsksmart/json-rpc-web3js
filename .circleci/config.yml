@@ -73,10 +73,6 @@ jobs:
                             {
                                 "type": "mrkdwn",
                                 "text": "*RskJ Web3js Tests*"
-                            }, 
-                            {
-                                "type": "mrkdwn",
-                                "text": "*Commit*:$CIRCLE_SHA1"
                             }
                         ]
                     },
@@ -94,6 +90,10 @@ jobs:
                             {
                                 "type": "mrkdwn",
                                 "text": "*Target Version*: << pipeline.parameters.version >>"
+                            }, 
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Commit*:$CIRCLE_SHA1"
                             }
                         ],
                         "accessory": {
