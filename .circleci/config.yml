@@ -9,6 +9,8 @@ parameters:
     branch:
         type: string
         default: "master"
+orbs:
+  slack: circleci/slack@4.1
 jobs:
   build:
     docker:
@@ -53,7 +55,132 @@ jobs:
                       sleep 1
                     done
                     npm test
-
+      - slack/notify:
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Job Succeeded. :white_check_mark:",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RskJ Web3js Tests*"
+                            }, 
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Commit*:\\n$CIRCLE_SHA1"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Target Repository*:\\n<< pipeline.parameters.repo >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Target Branch*:\\n<< pipeline.parameters.branch >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Target Version*:\\n<< pipeline.parameters.version >>"
+                            }
+                        ],
+                        "accessory": {
+                            "type": "image",
+                            "image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+                            "alt_text": "CircleCI logo"
+                        }
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "View Job"
+                                },
+                                "url": "${CIRCLE_BUILD_URL}"
+                            }
+                        ]
+                    }
+                ]
+                }
+          event: pass
+      - slack/notify:
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Job Failed. :red_circle:",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RskJ Web3js Tests*"
+                            }, 
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Commit*:\\n$CIRCLE_SHA1"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Target Repository*:\\n<< pipeline.parameters.repo >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Target Branch*:\\n<< pipeline.parameters.branch >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Target Version*:\\n<< pipeline.parameters.version >>"
+                            }
+                        ],
+                        "accessory": {
+                            "type": "image",
+                            "image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+                            "alt_text": "CircleCI logo"
+                        }
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "View Job"
+                                },
+                                "url": "${CIRCLE_BUILD_URL}"
+                            }
+                        ]
+                    }
+                ]
+                }
+          event: fail
       - store_test_results:
           path: ~/tmp/Results
       
