@@ -9,6 +9,8 @@ parameters:
     branch:
         type: string
         default: "master"
+orbs:
+  slack: circleci/slack@4.1
 jobs:
   build:
     docker:
@@ -53,7 +55,96 @@ jobs:
                       sleep 1
                     done
                     npm test
-
+      - slack/notify:
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "RskJ Web3js Tests Passed :white_check_mark:",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tested Version*: << pipeline.parameters.version >>"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "View Job"
+                                },
+                                "url": "${CIRCLE_BUILD_URL}"
+                            }
+                        ]
+                    }
+                ]
+                }
+          event: pass
+      - slack/notify:
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "RskJ Web3js Tests Failed :red_circle:",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tested Version*: << pipeline.parameters.version >>"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "View Job"
+                                },
+                                "url": "${CIRCLE_BUILD_URL}"
+                            }
+                        ]
+                    }
+                ]
+                }
+          event: fail
       - store_test_results:
           path: ~/tmp/Results
       
