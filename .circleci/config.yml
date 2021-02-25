@@ -76,7 +76,7 @@ jobs:
                             }, 
                             {
                                 "type": "mrkdwn",
-                                "text": "*Commit*:\\n$CIRCLE_SHA1"
+                                "text": "*Commit*:$CIRCLE_SHA1"
                             }
                         ]
                     },
@@ -85,15 +85,15 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Repository*:\\n<< pipeline.parameters.repo >>"
+                                "text": "*Target Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Branch*:\\n<< pipeline.parameters.branch >>"
+                                "text": "*Target Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Version*:\\n<< pipeline.parameters.version >>"
+                                "text": "*Target Version*: << pipeline.parameters.version >>"
                             }
                         ],
                         "accessory": {
@@ -139,7 +139,7 @@ jobs:
                             }, 
                             {
                                 "type": "mrkdwn",
-                                "text": "*Commit*:\\n$CIRCLE_SHA1"
+                                "text": "*Commit*:$CIRCLE_SHA1"
                             }
                         ]
                     },
@@ -148,15 +148,15 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Repository*:\\n<< pipeline.parameters.repo >>"
+                                "text": "*Target Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Branch*:\\n<< pipeline.parameters.branch >>"
+                                "text": "*Target Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Version*:\\n<< pipeline.parameters.version >>"
+                                "text": "*Target Version*: << pipeline.parameters.version >>"
                             }
                         ],
                         "accessory": {
