@@ -1,5 +1,8 @@
 version: 2.1
 parameters:
+    repo:
+        type: string
+        default: "rsksmart/rskj.git"
     version:
         type: string
         default: "3.0.0-SNAPSHOT"
@@ -23,7 +26,7 @@ jobs:
           name: Clone and Build RSKj
           command: |
                     GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_fingerprint'
-                    git clone -b << pipeline.parameters.branch >> git@github.com:rsksmart/rskj.git ~/rsksmart/rskj
+                    git clone -b << pipeline.parameters.branch >> git@github.com:<< pipeline.parameters.repo >> ~/rsksmart/rskj
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
