@@ -63,18 +63,9 @@ jobs:
                         "type": "header",
                         "text": {
                             "type": "plain_text",
-                            "text": "Job Succeeded. :white_check_mark:",
+                            "text": "RskJ Web3js Tests Passed :white_check_mark:",
                             "emoji": true
                         }
-                    },
-                    {
-                        "type": "section",
-                        "fields": [
-                            {
-                                "type": "mrkdwn",
-                                "text": "*RskJ Web3js Tests*"
-                            }
-                        ]
                     },
                     {
                         "type": "section",
@@ -117,7 +108,7 @@ jobs:
                         "type": "header",
                         "text": {
                             "type": "plain_text",
-                            "text": "Job Failed. :red_circle:",
+                            "text": "RskJ Web3js Tests Failed. :red_circle:",
                             "emoji": true
                         }
                     },
@@ -126,24 +117,15 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*RskJ Web3js Tests*"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "section",
-                        "fields": [
-                            {
-                                "type": "mrkdwn",
-                                "text": "*Target Repository*: << pipeline.parameters.repo >>"
+                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Branch*: << pipeline.parameters.branch >>"
+                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Target Version*: << pipeline.parameters.version >>"
+                                "text": "*Tested Version*: << pipeline.parameters.version >>"
                             }
                         ]
                     },
