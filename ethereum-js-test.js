@@ -261,7 +261,6 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
     assert(receiptString.indexOf('logs') > 0, "logs is not being returned and it's expected!");
     assert(receiptString.indexOf('from') > 0, "from is not being returned and it's expected!");
     assert(receiptString.indexOf('to') > 0, "to is not being returned and it's expected!");
-    assert(receiptString.indexOf('root') > 0, "root is not being returned and it's expected!");
     assert(receiptString.indexOf('status') > 0, "status is not being returned and it's expected!");
     assert(receiptString.indexOf('logsBloom') > 0, "logsBloom is not being returned and it's expected!");
 
@@ -363,7 +362,6 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
        assert(receiptString.indexOf('logs') > 0, "logs is not being returned and it's expected!");
        assert(receiptString.indexOf('from') > 0, "from is not being returned and it's expected!");
        assert(receiptString.indexOf('to') > 0, "to is not being returned and it's expected!");
-       assert(receiptString.indexOf('root') > 0, "root is not being returned and it's expected!");
        assert(receiptString.indexOf('status') >0, "status is not being returned and it's expected!");
        assert(receiptString.indexOf('logsBloom') > 0, "logsBloom is not being returned and it's expected!");
 
@@ -435,7 +433,6 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
     assert(receiptString.indexOf('logs') >= 0, "logs is not being returned and it's expected!");
     assert(receiptString.indexOf('from') >= 0, "from is not being returned and it's expected!");
     assert(receiptString.indexOf('to') >= 0, "to is not being returned and it's expected!");
-    assert(receiptString.indexOf('root') >= 0, "root is not being returned and it's expected!");
     assert(receiptString.indexOf('status') >= 0, "status is not being returned and it's expected!");
     assert(receiptString.indexOf('logsBloom') >= 0, "logsBloom is not being returned and it's expected!");
   //  let invalidTx = await provider.getTransactionReceipt('0xd05274b72ca6346bcce89a64cd42ddd28d885fdd06772efe0fe7d19fdeadbeef');
