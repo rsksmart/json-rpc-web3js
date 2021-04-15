@@ -460,10 +460,10 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
     let contractCode = await provider.getCode(contractAddress, 'latest');
     assert.equal(contractCode, '0x6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b606860c1565b6040518082815260200191505060405180910390f35b806000819055507f93fe6d397c74fdf1402a8b72e47b68512f0510d7b98a4bc4cbdf6ac7108b3c596000546040518082815260200191505060405180910390a150565b6000805490509056fea265627a7a72305820c73a787ed29a46f8a85631abd07c906d900ca03c03b631cc85fe396408072ee164736f6c634300050a0032');
     let accountCount = await provider.getCode(testAccount, 'earliest');
-    assert.equal('0x00', accountCount);
+    assert.equal('0x', accountCount);
 
     let invalidAccount = await provider.getCode('0x0000000000000000000000000000000000000001', 'latest');
-    assert.equal('0x00', invalidAccount);
+    assert.equal('0x', invalidAccount);
   });
 
   // eth_getBlockByHash
