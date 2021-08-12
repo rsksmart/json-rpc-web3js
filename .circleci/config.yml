@@ -37,9 +37,8 @@ jobs:
                     ./gradlew clean build -x test
                     cd ~/rsksmart/rskj/rskj-core/build/libs/
                     f=`ls *-all.jar`
-                    echo $f
                     version=`echo $f | cut -c 11-15`
-                    echo $version
+                    echo "export VERSION_FOR_SLACK='${version}'" >> $BASH_ENV
       - run:
           name: Prepare npm
           command: |
@@ -87,7 +86,7 @@ jobs:
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*RSKj Version*: $version"
+                                "text": "*RSKj Version*: ${version}"
                             },
                             {
                                 "type": "mrkdwn",
