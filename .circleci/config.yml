@@ -86,7 +86,7 @@ jobs:
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*RSKj Version*: ${version}"
+                                "text": "*RSKj Version*: $version"
                             },
                             {
                                 "type": "mrkdwn",
