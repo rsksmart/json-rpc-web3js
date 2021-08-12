@@ -11,7 +11,7 @@ parameters:
         default: "master"
     slack_channel:
         type: string
-        default: "integration-tests"
+        default: "UDY9ZV16J"
 orbs:
   slack: circleci/slack@4.1
 jobs:
@@ -35,7 +35,6 @@ jobs:
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
-
       - run:
           name: Prepare npm
           command: |
@@ -46,7 +45,6 @@ jobs:
                     sudo apt-get upgrade
                     sudo apt-get install -yf nodejs
                     sudo apt install build-essential
-
       - run:
           name: Start RskJ & Run Tests
           command: |
@@ -76,15 +74,23 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
+                                "text": "*RSKj Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
+                                "text": "*RSKj Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Version*: << pipeline.parameters.version >>"
+                                "text": "*RSKj Version*: << pipeline.parameters.version >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tests Branch*: ${CIRCLE_BRANCH}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Requester*: ${CIRCLE_USERNAME}"
                             }
                         ]
                     },
@@ -122,15 +128,23 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
+                                "text": "*RSKj Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
+                                "text": "*RSKj Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Version*: << pipeline.parameters.version >>"
+                                "text": "*RSKj Version*: << pipeline.parameters.version >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tests Branch*: ${CIRCLE_BRANCH}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Requester*: ${CIRCLE_USERNAME}"
                             }
                         ]
                     },
@@ -155,4 +169,18 @@ jobs:
       
       - store_artifacts:
           path: ~/tmp/Results/mocha
-
+        
+workflows:
+    commit:
+        jobs:
+            - build
+    daily:
+        triggers:
+            - schedule:
+                cron: "21 01 * * *"
+                filters:
+                    branches:
+                        only:
+                            - master
+        jobs:
+            - build
