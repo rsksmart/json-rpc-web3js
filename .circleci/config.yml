@@ -35,7 +35,8 @@ jobs:
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
-                    f=`ls ~/rsksmart/rskj/rskj-core/build/libs/*-all.jar`
+                    cd ~/rsksmart/rskj/rskj-core/build/libs/
+                    f=`ls *-all.jar`
                     echo $f
                     version=`echo $f | cut -c 11-15`
                     echo $version
