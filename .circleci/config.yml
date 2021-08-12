@@ -5,7 +5,7 @@ parameters:
         default: "rsksmart/rskj.git"
     version:
         type: string
-        default: "3.1.0-SNAPSHOT"
+        default: ""
     branch:
         type: string
         default: "master"
@@ -35,7 +35,10 @@ jobs:
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
-
+                    cd ~/rsksmart/rskj/rskj-core/build/libs/
+                    f=`ls *-all.jar`
+                    version=`echo $f | cut -c 11-15`
+                    echo "export VERSION_FOR_SLACK='${version}'" >> $BASH_ENV
       - run:
           name: Prepare npm
           command: |
@@ -46,12 +49,11 @@ jobs:
                     sudo apt-get upgrade
                     sudo apt-get install -yf nodejs
                     sudo apt install build-essential
-
       - run:
           name: Start RskJ & Run Tests
           command: |
                     npm install
-                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-<< pipeline.parameters.version >>-all.jar co.rsk.Start --regtest nohup &               
+                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-*-all.jar co.rsk.Start --regtest nohup &               
                     until nc -z 127.0.0.1 4444
                     do
                       echo "Waiting for RskJ..."
@@ -76,15 +78,23 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
+                                "text": "*RSKj Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
+                                "text": "*RSKj Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Version*: << pipeline.parameters.version >>"
+                                "text": "*RSKj Version*: ${VERSION_FOR_SLACK}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tests Branch*: ${CIRCLE_BRANCH}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Requester*: ${CIRCLE_USERNAME}"
                             }
                         ]
                     },
@@ -122,15 +132,23 @@ jobs:
                         "fields": [
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Repository*: << pipeline.parameters.repo >>"
+                                "text": "*RSKj Repository*: << pipeline.parameters.repo >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Branch*: << pipeline.parameters.branch >>"
+                                "text": "*RSKj Branch*: << pipeline.parameters.branch >>"
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*Tested Version*: << pipeline.parameters.version >>"
+                                "text": "*RSKj Version*: ${VERSION_FOR_SLACK}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tests Branch*: ${CIRCLE_BRANCH}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Requester*: ${CIRCLE_USERNAME}"
                             }
                         ]
                     },
