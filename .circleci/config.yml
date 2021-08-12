@@ -35,6 +35,8 @@ jobs:
                     cd ~/rsksmart/rskj/
                     ./configure.sh
                     ./gradlew clean build -x test
+                    f=`ls ~/rsksmart/rskj/rskj-core/build/libs/*-all.jar`
+                    version=`echo $f | cut -c 11-15`
       - run:
           name: Prepare npm
           command: |
@@ -49,7 +51,7 @@ jobs:
           name: Start RskJ & Run Tests
           command: |
                     npm install
-                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-<< pipeline.parameters.version >>-all.jar co.rsk.Start --regtest nohup &               
+                    java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-*-all.jar co.rsk.Start --regtest nohup &               
                     until nc -z 127.0.0.1 4444
                     do
                       echo "Waiting for RskJ..."
@@ -82,7 +84,7 @@ jobs:
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*RSKj Version*: << pipeline.parameters.version >>"
+                                "text": "*RSKj Version*: $version"
                             },
                             {
                                 "type": "mrkdwn",
