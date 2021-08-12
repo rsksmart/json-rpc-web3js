@@ -5,13 +5,13 @@ parameters:
         default: "rsksmart/rskj.git"
     version:
         type: string
-        default: "3.1.0-SNAPSHOT"
+        default: ""
     branch:
         type: string
         default: "master"
     slack_channel:
         type: string
-        default: "UDY9ZV16J"
+        default: "integration-tests"
 orbs:
   slack: circleci/slack@4.1
 jobs:
@@ -140,7 +140,7 @@ jobs:
                             },
                             {
                                 "type": "mrkdwn",
-                                "text": "*RSKj Version*: << pipeline.parameters.version >>"
+                                "text": "*RSKj Version*: ${VERSION_FOR_SLACK}"
                             },
                             {
                                 "type": "mrkdwn",
