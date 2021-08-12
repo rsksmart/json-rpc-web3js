@@ -37,6 +37,7 @@ jobs:
                     ./gradlew clean build -x test
                     f=`ls ~/rsksmart/rskj/rskj-core/build/libs/*-all.jar`
                     version=`echo $f | cut -c 11-15`
+                    echo $version
       - run:
           name: Prepare npm
           command: |
