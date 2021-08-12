@@ -11,14 +11,14 @@ parameters:
         default: "master"
     slack_channel:
         type: string
-        default: "integration-tests"
+        default: "UDY9ZV16J"
 orbs:
   slack: circleci/slack@4.1
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+      - image: cimg/openjdk:8.0-node
 
     working_directory: ~/tmp
 
@@ -39,20 +39,14 @@ jobs:
                     f=`ls *-all.jar`
                     version=`echo $f | cut -c 11-15`
                     echo "export VERSION_FOR_SLACK='${version}'" >> $BASH_ENV
+      
       - run:
-          name: Prepare npm
-          command: |
-                    sudo apt-get update -y
-                    sudo apt-get install -y apt-utils
-                    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-                    sudo apt update
-                    sudo apt-get upgrade
-                    sudo apt-get install -yf nodejs
-                    sudo apt install build-essential
+          name: Install Tests
+          command: npm install
+
       - run:
           name: Start RskJ & Run Tests
           command: |
-                    npm install
                     java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-*-all.jar co.rsk.Start --regtest nohup &               
                     until nc -z 127.0.0.1 4444
                     do
