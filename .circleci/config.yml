@@ -75,6 +75,115 @@ jobs:
       
       - store_artifacts:
           path: ~/tmp/Results/mocha
+          
+    - slack/notify:
+          channel: << pipeline.parameters.slack_channel >>
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "RskJ Web3js Tests Passed :white_check_mark:",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RSKj Repository*: << pipeline.parameters.repo >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RSKj Branch*: << pipeline.parameters.branch >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RSKj Version*: ${VERSION_FOR_SLACK}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tests Branch*: ${CIRCLE_BRANCH}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Requester*: ${CIRCLE_USERNAME}"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "View Job"
+                                },
+                                "url": "${CIRCLE_BUILD_URL}"
+                            }
+                        ]
+                    }
+                ]
+                }
+          event: pass
+      - slack/notify:
+          channel: << pipeline.parameters.slack_channel >>
+          custom: |
+            {
+                "blocks": [
+                    {
+                        "type": "header",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "RskJ Web3js Tests Failed :red_circle:",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RSKj Repository*: << pipeline.parameters.repo >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RSKj Branch*: << pipeline.parameters.branch >>"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*RSKj Version*: ${VERSION_FOR_SLACK}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Tests Branch*: ${CIRCLE_BRANCH}"
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": "*Requester*: ${CIRCLE_USERNAME}"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "actions",
+                        "elements": [
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "View Job"
+                                },
+                                "url": "${CIRCLE_BUILD_URL}"
+                            }
+                        ]
+                    }
+                ]
+                }
+          event: fail
         
 workflows:
     commit:
