@@ -64,10 +64,9 @@ jobs:
                       sleep 1
                     done
                     npm test
-          event: pass
-          event: fail
       - store_test_results:
           path: ~/tmp/Results
+
       - run:
           name: Upload results to XRAY
           command: |
