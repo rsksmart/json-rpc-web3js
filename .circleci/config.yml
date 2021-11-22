@@ -174,6 +174,11 @@ jobs:
           event: fail
       - store_test_results:
           path: ~/tmp/Results
+      - run:
+          name: Upload results to XRAY
+          command: |
+                    aut_token=`curl -X POST "https://xray.cloud.getxray.app/api/v2/authenticate" -H "Content-Type: application/json" --data-raw "{\"client_id\": \"${XRAY_CID}\", \"client_secret\": \"${XRAY_SECRET}\"}"`
+                    curl -X POST "https://xray.cloud.getxray.app/api/v2/import/execution/junit/multipart" -H "Authorization: Bearer ${aut_token:1:-1}" -F "results=@\"/home/circleci/tmp/Results/mocha/Test-Results.xml\"" -F "info=@\"/home/circleci/tmp/xray-conf/createTestExecution.json\""
       
       - store_artifacts:
           path: ~/tmp/Results/mocha
