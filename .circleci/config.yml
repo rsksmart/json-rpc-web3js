@@ -192,10 +192,11 @@ workflows:
     daily:
         triggers:
             - schedule:
-                cron: "21 01 * * *"
+                cron: "* 16 * * *"
                 filters:
                     branches:
                         only:
                             - master
+                            -xray-Implementation
         jobs:
             - build
