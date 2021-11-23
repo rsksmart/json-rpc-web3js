@@ -197,6 +197,6 @@ workflows:
                     branches:
                         only:
                             - master
-                            -xray-Implementation
+                            - xray-Implementation
         jobs:
             - build
