@@ -75,8 +75,8 @@ jobs:
       
       - store_artifacts:
           path: ~/tmp/Results/mocha
-          
-    - slack/notify:
+
+      - slack/notify:
           channel: << pipeline.parameters.slack_channel >>
           custom: |
             {
