@@ -1,0 +1,18 @@
+
+ {
+    "fields": {
+        "project": {
+            "id": "10965"
+        },
+        "issuetype": {
+            "id": "10285"
+        },
+        "summary": "Test execution from CircleCI",
+        "description": "Results from automation results on CircleCI",
+        "labels": [
+            "CircleCI",
+            "Automation",
+            "Web3JS"
+        ] 
+    }
+}
