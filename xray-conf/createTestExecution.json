@@ -7,12 +7,12 @@
         "issuetype": {
             "id": "10285"
         },
-        "summary": "Test execution from CircleCI",
-        "description": "Results from automation results on CircleCI",
+        "summary": "json-rpc-web3js Test execution from CircleCI",
+        "description": "json-rpc-web3js Test Results from CircleCI",
         "labels": [
             "CircleCI",
             "Automation",
-            "Web3JS"
+            "json-rpc-web3js"
         ] 
     }
 }
