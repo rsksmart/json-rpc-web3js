@@ -11,7 +11,7 @@ parameters:
         default: "master"
     slack_channel:
         type: string
-        default: "integration-tests"
+        default: "qa-automated-tests"
 orbs:
   slack: circleci/slack@4.1
 jobs:
@@ -192,11 +192,10 @@ workflows:
     daily:
         triggers:
             - schedule:
-                cron: "* 16 * * *"
+                cron: "21 01 * * *"
                 filters:
                     branches:
                         only:
                             - master
-                            - xray-Implementation
         jobs:
             - build
