@@ -1,0 +1,18 @@
+
+ {
+    "fields": {
+        "project": {
+            "id": "10965"
+        },
+        "issuetype": {
+            "id": "10285"
+        },
+        "summary": "json-rpc-web3js Test execution from CircleCI",
+        "description": "json-rpc-web3js Test Results from CircleCI",
+        "labels": [
+            "CircleCI",
+            "Automation",
+            "json-rpc-web3js"
+        ] 
+    }
+}
