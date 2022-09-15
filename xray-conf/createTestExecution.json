@@ -2,7 +2,7 @@
  {
     "fields": {
         "project": {
-            "key": "QAATR"
+            "key": "CORE"
         },
         "issuetype": {
             "name": "Test Execution"
@@ -16,6 +16,6 @@
         ]
     },
     "xrayFields": {
-        "testPlanKey": "QAATR-1507"
+        "testPlanKey": "CORE-888"
       }
 }
