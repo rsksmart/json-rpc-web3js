@@ -2,7 +2,7 @@
  {
     "fields": {
         "project": {
-            "key": "QAATR"
+            "key": "CORE"
         },
         "issuetype": {
             "name": "Test Execution"
@@ -14,8 +14,6 @@
             "Automation",
             "json-rpc-web3js"
         ],
-        "xrayFields": {
-            "testPlanKey": "QAATR-1507"
-          } 
+        "testPlanKey": "CORE-1507"
     }
 }
