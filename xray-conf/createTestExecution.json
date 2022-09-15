@@ -13,7 +13,9 @@
             "CircleCI",
             "Automation",
             "json-rpc-web3js"
-        ],
+        ]
+    },
+    "xrayFields": {
         "testPlanKey": "QAATR-1507"
-    }
+      }
 }
