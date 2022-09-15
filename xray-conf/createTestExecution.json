@@ -2,7 +2,7 @@
  {
     "fields": {
         "project": {
-            "key": "CORE"
+            "key": "QAATR"
         },
         "issuetype": {
             "name": "Test Execution"
@@ -14,6 +14,6 @@
             "Automation",
             "json-rpc-web3js"
         ],
-        "testPlanKey": "CORE-1507"
+        "testPlanKey": "QAATR-1507"
     }
 }
