@@ -72,7 +72,7 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
 
     // eth_hashrate
     let hashRate = await provider.send("eth_hashrate");
-    assert.equal(hashRate, '0');
+    assert.equal(hashRate, '0x0');
 
     // eth_syncing
     let isSyncing = await provider.send('eth_syncing');
