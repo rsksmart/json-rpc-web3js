@@ -18,7 +18,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/openjdk:8.0-node
+      - image: cimg/openjdk:17.0-node
 
     working_directory: ~/tmp
 
