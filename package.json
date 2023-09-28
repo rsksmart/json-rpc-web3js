@@ -19,8 +19,8 @@
   "homepage": "https://github.com/iovlabs-qa/json-rpc-web3js#readme",
   "dependencies": {
     "@ethersproject/providers": "^5.0.12",
-    "@rsksmart/rsk3": "0.3.4",
-    "bignumber.js": "^9.0.0",
+    "@rsksmart/rsk3": "^0.3.4",
+    "bignumber.js": "^9.1.2",
     "chai": "^4.2.0",
     "ethers": "^5.0.16",
     "mocha": "^10.2.0",
