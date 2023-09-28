@@ -21,7 +21,7 @@
     "@ethersproject/providers": "^5.0.12",
     "@rsksmart/rsk3": "^0.3.4",
     "bignumber.js": "^9.1.2",
-    "chai": "^4.2.0",
+    "chai": "^4.3.10",
     "ethers": "^5.0.16",
     "mocha": "^10.2.0",
     "mocha-junit-reporter": "^2.2.1",
