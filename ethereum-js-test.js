@@ -104,10 +104,10 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
 
     // eth_protocolVersion
     let protocolVersion = await provider.send("eth_protocolVersion");
-    assert.equal(protocolVersion, '62');
+    assert.equal(protocolVersion, '0x3e');
 
     // eth_mining
-    let isMining = await provider.send("eth_mining");;
+    let isMining = await provider.send("eth_mining");
     assert.equal(isMining, true);
 
   });

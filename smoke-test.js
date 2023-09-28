@@ -98,7 +98,7 @@ libs.forEach(({
 
       // eth_protocolVersion
       let protocolVersion = await web3.eth.getProtocolVersion();
-      assert.equal(protocolVersion, '62');
+      assert.equal(protocolVersion, '0x3e');
 
       // eth_mining
       let isMining = await web3.eth.isMining();
