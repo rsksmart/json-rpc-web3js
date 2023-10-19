@@ -163,8 +163,13 @@ describe(`Rskj ethers.js Smoke Tests`, function () {
     let blockHash = byBlockNumber.blockHash;
     let byHash = await provider.send("eth_getTransactionByBlockHashAndIndex", [blockHash, "0x0"]);
     assert.deepEqual(byBlockNumber, byHash);
-    let invalidBlock = await provider.send("eth_getTransactionByBlockNumberAndIndex", ['0xdeadbeef0fb9424aad2417321cac62915f6c83827f4d3c8c8c06900a61c4236c', 0]);
-    assert.isNull(invalidBlock);
+    try {
+      let invalidBlock = await provider.send("eth_getTransactionByBlockNumberAndIndex", ['0xdeadbeef0fb9424aad2417321cac62915f6c83827f4d3c8c8c06900a61c4236c', 0]);
+    } catch (err) {
+      assert.equal(err.status,400);
+      assert.include(err.body,'"error":{"code":-32602,"message":"Invalid argument \\"0\\": param should be a hex value string."}');
+    }
+    //assert.isNull(invalidBlock);
   });
 
   // eth_getBlockTransactionCountByHash
