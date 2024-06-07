@@ -19,6 +19,8 @@ jobs:
     docker:
       # specify the version you desire here
       - image: cimg/openjdk:17.0-node
+      enviornment: 
+          TESTOMATIO: tstmt_8IsYsYB3cyyFFgrn4gZI_bKheRUYwttwiw1717759618
 
     working_directory: ~/tmp
 
