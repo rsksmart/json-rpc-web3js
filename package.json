@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test-default-reporter": "mocha ./smoke-test.js",
-    "test": "mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/mocha/Test-Results.xml"
+    "test": "mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/mocha/Test-Results.xml",
+    "testomat_sync_tests": "npx check-tests@latest Mocha '**/*.js'",
+    "test:testomat": "npx mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/mocha/Test-Results.xml -R ./node_modules/@testomatio/reporter/lib/adapter/mocha.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iovlabs-qa/json-rpc-web3js.git"
   },
-  "author": "",
+  "author": "RootstockLabs QA Team",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/iovlabs-qa/json-rpc-web3js/issues"
