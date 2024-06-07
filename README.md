@@ -8,6 +8,12 @@ This is a Test Suite for Web3js compatibility validation of [RSKj](https://githu
 It's implemented using NodeJS and Mocha and it's meant to test JSON RPC methods.
 This is still a BETA but it's fully functional and tests can be incorporated.
 
+## Configuration
+Create the `.env` file in the root directory with the following variable:
+```
+TESTOMATIO=Testomat_API_KEY
+```
+
 # Getting Started
 
 Prerequisites:
@@ -17,7 +23,10 @@ Prerequisites:
 Instructions:
 - Clone this repository
 - npm install
-- npm test
+- `npm test` or `npm test:testomat` to load the test runs to testomat.
 
 Detailed results report will available in ./Results using mocha-junit-reporter
 This repository also includes CircleCI configuration for workflows on commit/builds and daily job.
+
+## Synchronize tests in testomat
+- Run the script `sync_tests_testomat`
