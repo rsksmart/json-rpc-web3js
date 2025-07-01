@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-default-reporter": "mocha ./smoke-test.js",
-    "test": "mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/mocha/Test-Results.xml",
+    "test": "mocha ./*test.js --reporter spec && mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/mocha/Test-Results.xml",
     "testomat_sync_tests": "npx check-tests@latest Mocha '**/*.js'",
     "test:testomat": "npx mocha ./*test.js --reporter mocha-junit-reporter --reporter-options mochaFile=./results/mocha/Test-Results.xml -R ./node_modules/@testomatio/reporter/lib/adapter/mocha.js"
   },
@@ -20,15 +20,15 @@
   },
   "homepage": "https://github.com/iovlabs-qa/json-rpc-web3js#readme",
   "dependencies": {
-    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/providers": "^5.8.0",
     "@rsksmart/rsk3": "^0.3.4",
-    "bignumber.js": "^9.1.2",
-    "chai": "^4.3.10",
-    "ethers": "^5.0.16",
-    "mocha": "^10.8.2",
+    "bignumber.js": "^9.3.0",
+    "chai": "^5.2.0",
+    "ethers": "^6.14.4",
+    "mocha": "^11.7.1",
     "mocha-junit-reporter": "^2.2.1",
     "path": "^0.12.7",
-    "solc": "^0.5.10",
-    "web3": "^1.10.2"
+    "solc": "^0.8.30",
+    "web3": "^4.16.0"
   }
 }
