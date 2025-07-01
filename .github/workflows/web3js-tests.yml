@@ -1,0 +1,124 @@
+name: Web3js Tests
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+  schedule:
+    # Daily at 01:21 UTC (equivalent to the CircleCI cron)
+    - cron: '21 1 * * *'
+
+env:
+  TESTOMATIO: tstmt_8IsYsYB3cyyFFgrn4gZI_bKheRUYwttwiw1717759618
+  RSKJ_REPO: rsksmart/rskj.git
+  RSKJ_BRANCH: master
+  SLACK_CHANNEL: integration-tests
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL || '' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Checkout RSKj
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.RSKJ_REPO }}
+          ref: ${{ env.RSKJ_BRANCH }}
+          path: rsksmart/rskj
+
+      - name: Clone and Build RSKj
+        run: |
+          cd ~/rsksmart/rskj/
+          ./configure.sh
+          ./gradlew clean build -x test
+          cd ~/rsksmart/rskj/rskj-core/build/libs/
+          f=`ls *-all.jar`
+          version=`echo $f | cut -c 11-15`
+          echo "VERSION_FOR_SLACK=${version}" >> $GITHUB_ENV
+
+      - name: Create results directory
+        run: mkdir -p results/mocha
+
+      - name: Start RskJ & Run Tests
+        run: |
+          java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-*-all.jar co.rsk.Start --regtest nohup &
+          until nc -z 127.0.0.1 4444
+          do
+            echo "Waiting for RskJ..."
+            sleep 1
+          done
+          npm test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: results/mocha/
+          retention-days: 7
+
+      - name: Check Slack webhook
+        run: |
+          if [ -n "${{ secrets.SLACK_WEBHOOK_URL }}" ]; then
+            echo "SLACK_WEBHOOK_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "SLACK_WEBHOOK_EXISTS=false" >> $GITHUB_ENV
+          fi
+
+      - name: Notify Slack on Success
+        if: success() && env.SLACK_WEBHOOK_EXISTS == 'true'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: success
+          channel: ${{ env.SLACK_CHANNEL }}
+          text: |
+            :white_check_mark: RskJ Web3js Tests Passed
+            
+            *RSKj Repository*: ${{ env.RSKJ_REPO }}
+            *RSKj Branch*: ${{ env.RSKJ_BRANCH }}
+            *RSKj Version*: ${{ env.VERSION_FOR_SLACK }}
+            *Tests Branch*: ${{ github.ref_name }}
+            *Requester*: ${{ github.actor }}
+            
+            <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Job>
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack on Failure
+        if: failure() && env.SLACK_WEBHOOK_EXISTS == 'true'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          channel: ${{ env.SLACK_CHANNEL }}
+          text: |
+            :red_circle: RskJ Web3js Tests Failed
+            
+            *RSKj Repository*: ${{ env.RSKJ_REPO }}
+            *RSKj Branch*: ${{ env.RSKJ_BRANCH }}
+            *RSKj Version*: ${{ env.VERSION_FOR_SLACK }}
+            *Tests Branch*: ${{ github.ref_name }}
+            *Requester*: ${{ github.actor }}
+            
+            <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Job>
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} 
