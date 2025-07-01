@@ -17,7 +17,7 @@ env:
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL || '' }}
 
 jobs:
-  build:
+  web3js-tests:
     runs-on: ubuntu-latest
     
     steps:
@@ -48,10 +48,10 @@ jobs:
 
       - name: Clone and Build RSKj
         run: |
-          cd ~/rsksmart/rskj/
+          cd rsksmart/rskj/
           ./configure.sh
           ./gradlew clean build -x test
-          cd ~/rsksmart/rskj/rskj-core/build/libs/
+          cd rskj-core/build/libs/
           f=`ls *-all.jar`
           version=`echo $f | cut -c 11-15`
           echo "VERSION_FOR_SLACK=${version}" >> $GITHUB_ENV
@@ -61,7 +61,7 @@ jobs:
 
       - name: Start RskJ & Run Tests
         run: |
-          java -cp ~/rsksmart/rskj/rskj-core/build/libs/rskj-core-*-all.jar co.rsk.Start --regtest nohup &
+          java -cp rsksmart/rskj/rskj-core/build/libs/rskj-core-*-all.jar co.rsk.Start --regtest nohup &
           until nc -z 127.0.0.1 4444
           do
             echo "Waiting for RskJ..."
